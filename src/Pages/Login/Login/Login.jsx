@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
-import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
+import { useEffect, useRef, useState } from 'react';
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha, } from 'react-simple-captcha';
 
 const Login = () => {
+    const captchaRef=useRef(null);
+    const [disabled,setDisabled]=useState(true)
     useEffect(()=>{
         loadCaptchaEnginge(6); 
     },[])
@@ -11,6 +13,18 @@ const Login = () => {
         const email=form.email.value;
         const password=form.password.value;
         console.log(email,password);
+    }
+    const validateUserCaptcha = () =>{
+        const user_captcha_value=captchaRef.current.value;
+        if (validateCaptcha(user_captcha_value)==true) {
+            setDisabled(false)
+        }
+   
+        else {
+           setDisabled(true)
+        }
+    
+
     }
     return (
         <div className="hero bg-base-200 min-h-screen">
@@ -34,12 +48,13 @@ const Login = () => {
                             <label className="label">
                             <LoadCanvasTemplate />
                             </label>
-                            <input type="text" placeholder="Type The Captcha" name="captcha" className="input input-bordered" required />
+                            <input type="text" ref={captchaRef} placeholder="Type The Captcha" name="captcha" className="input input-bordered" required />
+                            <button onClick={validateUserCaptcha} className='btn btn-outline btn-xs mt-2'> VALIDATE</button>
                            
                         </div>
                         <div className="form-control mt-6">
                             
-                           <input className="btn btn-outline border-0 border-b-4 my-4 "  style={{ backgroundColor: 'rgba(209, 160, 84, 0.70)' }} type="submit" value="Login" />
+                           <input disabled={disabled} className="btn btn-outline border-0 border-b-4 my-4 "  style={{ backgroundColor: 'rgba(209, 160, 84, 0.70)' }} type="submit" value="Login" />
                         </div>
                     </form>
                 </div>
