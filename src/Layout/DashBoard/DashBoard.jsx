@@ -3,8 +3,10 @@ import { IoHomeOutline, IoMenu } from "react-icons/io5";
 import { MdContactPhone, MdPayment, MdRateReview } from "react-icons/md";
 import { TbBrandBooking } from "react-icons/tb";
 import { NavLink, Outlet } from "react-router-dom";
+import useCart from "../../hooks/useCart";
 
 const DashBoard = () => {
+    const [cart]=useCart();
     return (
         <div className="flex">
             <div className="w-64 min-h-screen bg-[#D1A054]">
@@ -16,7 +18,7 @@ const DashBoard = () => {
                     </li>
                     <li>
                         
-                        <NavLink to='/dashboard/cart'> <FaShoppingCart></FaShoppingCart>  My Cart</NavLink>
+                        <NavLink to='/dashboard/cart'> <FaShoppingCart></FaShoppingCart>  My Cart ({cart.length})</NavLink>
                     </li>
                    
                     <li>

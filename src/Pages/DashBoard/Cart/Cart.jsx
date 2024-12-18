@@ -6,7 +6,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 
 const Cart = () => {
-    const [cart]=useCart();
+    const [cart,refetch]=useCart();
     const totalPrice=cart.reduce((total,item)=>total+item.price,0);
     const axiosSecure=useAxiosSecure();
     const handleAddToDelete =id=>{
@@ -29,6 +29,7 @@ const Cart = () => {
             axiosSecure.delete(`/carts/${id}`)
             .then(res=>{
                 if(res.data.deletedCount > 0){
+                    refetch();
                       Swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
