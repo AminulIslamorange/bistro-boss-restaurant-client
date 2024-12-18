@@ -1,13 +1,13 @@
-import { FaCalendarAlt, FaShoppingCart } from "react-icons/fa";
-import { IoHomeOutline } from "react-icons/io5";
-import { MdPayment, MdRateReview } from "react-icons/md";
+import { FaCalendarAlt, FaShoppingBag, FaShoppingCart } from "react-icons/fa";
+import { IoHomeOutline, IoMenu } from "react-icons/io5";
+import { MdContactPhone, MdPayment, MdRateReview } from "react-icons/md";
 import { TbBrandBooking } from "react-icons/tb";
 import { NavLink, Outlet } from "react-router-dom";
 
 const DashBoard = () => {
     return (
         <div className="flex">
-            <div className="w-64 min-h-full bg-[#D1A054]">
+            <div className="w-64 min-h-screen bg-[#D1A054]">
                 {/* dashboard sidebar */}
                 <ul className="menu">
                 <li>
@@ -35,12 +35,29 @@ const DashBoard = () => {
                         
                         <NavLink to='/dashboard/booking'><TbBrandBooking />  my booking</NavLink>
                     </li>
+                    <div className="divider"></div>
+                    <li>
+                        
+                        <NavLink to='/'>  <IoHomeOutline />Home</NavLink>
+                    </li>
+                    <li>
+                        
+                        <NavLink to='/order/salad'>  <IoMenu />Menu</NavLink>
+                    </li>
+                    <li>
+                        
+                        <NavLink to='/menu'>  <FaShoppingBag />Shop</NavLink>
+                    </li>
+                    <li>
+                        
+                        <NavLink to='/'>  <MdContactPhone />Contact</NavLink>
+                    </li>
 
                 </ul>
 
             </div>
          {/* dashboard content */}
-            <div className="flex-1">
+            <div className="flex-1 p-8">
                 <Outlet></Outlet>
             </div>
         </div>
