@@ -4,9 +4,12 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import SocialLogin from "../../../components/SocialLogin/SocialLogin";
 
 
 const SignUp = () => {
+    const axiosPublic=useAxiosPublic();
     const { createUser, updateUserProfile } = useContext(AuthContext)
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
     const navigate = useNavigate();
@@ -20,7 +23,15 @@ const SignUp = () => {
                 console.log(logedUser);
                 updateUserProfile(data.name, data.photoURL)
                     .then(() => {
-                        reset();
+                        const userInfo={
+                            name:data.name,
+                            email:data.email,
+                        }
+                        // create user in the database
+                        axiosPublic.post('/users',userInfo)
+                        .then(res=>{
+                            if(res.data.insertedId){
+                                reset();
                         Swal.fire({
                             position: "top-end",
                             icon: "success",
@@ -30,6 +41,12 @@ const SignUp = () => {
                         });
                         navigate('/')
 
+
+                            }
+                        })
+
+
+                        
                     })
                     .catch(error => {
                         console.error(error)
@@ -90,6 +107,7 @@ const SignUp = () => {
                                 <input className="btn btn-outline border-0 border-b-4 my-4 " style={{ backgroundColor: 'rgba(209, 160, 84, 0.70)' }} type="submit" value="SignUp" />
                             </div>
                         </form>
+                        <SocialLogin></SocialLogin>
                         <p className='text-center pb-12'><small>Already have an Account?   <Link to='/login'>please Login</Link></small></p>
                     </div>
                     <div className="text-center lg:text-left md:w-1/2">

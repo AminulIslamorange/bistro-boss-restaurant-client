@@ -37,6 +37,7 @@ const DashBoard = () => {
                         
                         <NavLink to='/dashboard/booking'><TbBrandBooking />  my booking</NavLink>
                     </li>
+                    {/* shared navLink */}
                     <div className="divider"></div>
                     <li>
                         
