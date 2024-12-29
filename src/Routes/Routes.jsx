@@ -9,6 +9,7 @@ import SignUp from "../Pages/SignUp/SignUp/SignUp";
 import DashBoard from "../Layout/DashBoard/DashBoard";
 import Cart from "../Pages/DashBoard/Cart/Cart";
 import PrivetRoutes from "./PrivetRoutes";
+import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
 
 
 
@@ -49,7 +50,12 @@ export const router = createBrowserRouter([
        { path:'cart',
         element:<Cart></Cart>
 
-       }
+       },
+      //  adimin routes
+      {
+        path:'users',
+        element:<AllUsers></AllUsers>
+      }
       ]
       
     }
